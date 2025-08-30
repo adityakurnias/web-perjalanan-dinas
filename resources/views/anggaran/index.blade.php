@@ -15,7 +15,7 @@
         </div>
 
         @if($anggarans->count() > 0)
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-lg overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
