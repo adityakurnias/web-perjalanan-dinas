@@ -4,63 +4,73 @@
 @section('title', 'Detail Pegawai')
 
 @section('content')
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
-        <div class="mdl-card mdl-shadow--2dp card-wide">
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Detail Pegawai</h2>
+    <div class="bg-violet-50 min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div class="max-w-3xl w-full bg-white/50 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-8">
+                <h2 class="text-3xl font-bold text-[#6750A4]">Detail Pegawai</h2>
+                <p class="mt-2 text-sm text-[#6750A4]">Informasi lengkap untuk {{ $user->name }}.</p>
             </div>
-            <div class="mdl-card__supporting-text">
-                <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>NIK:</strong> {{ $user->nik }}
+
+            <div class="border-t border-gray-200 px-8 py-6">
+                <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">NIK</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $user->nik }}</dd>
                     </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Nama:</strong> {{ $user->name }}
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">Nama Lengkap</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $user->name }}</dd>
                     </div>
-                    
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Email:</strong> {{ $user->email }}
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">Email</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $user->email }}</dd>
                     </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Status:</strong>
-                        <span class="status-{{ $user->status }}">
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">Jabatan</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $user->pegawai->jabatan }}</dd>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">Departemen</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $user->pegawai->departemen }}</dd>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">No. Telepon</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $user->pegawai->no_telp }}</dd>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">Alamat</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $user->pegawai->alamat }}</dd>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-[#6750A4]">Status Akun</dt>
+                        <dd class="mt-1 text-base font-semibold text-[#6750A4]">
                             @if($user->status == 'approved')
-                                Disetujui
+                                <span
+                                    class="px-3 py-1 text-sm font-semibold text-green-800 bg-green-100 rounded-full">Disetujui</span>
                             @elseif($user->status == 'rejected')
-                                Ditolak
+                                <span
+                                    class="px-3 py-1 text-sm font-semibold text-red-800 bg-red-100 rounded-full">Ditolak</span>
                             @else
-                                Menunggu
+                                <span
+                                    class="px-3 py-1 text-sm font-semibold text-yellow-800 bg-yellow-100 rounded-full">Menunggu</span>
                             @endif
-                        </span>
+                        </dd>
                     </div>
-                    
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Jabatan:</strong> {{ $user->pegawai->jabatan }}
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Departemen:</strong> {{ $user->pegawai->departemen }}
-                    </div>
-                    
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>No. Telepon:</strong> {{ $user->pegawai->no_telp }}
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Alamat:</strong> {{ $user->pegawai->alamat }}
-                    </div>
-                </div>
-                
-                <div style="margin-top: 20px;">
-                    <a href="{{ route('pegawai.edit', $user->id) }}" class="mdl-button mdl-js-button mdl-button--raised">
-                        <i class="material-icons">edit</i> Edit
-                    </a>
-                    
-                    <a href="{{ route('pegawai.index') }}" class="mdl-button mdl-js-button">
-                        Kembali
+                </dl>
+            </div>
+
+            <div class="bg-gray-50 px-8 py-4 flex items-center justify-end space-x-4">
+                <a href="{{ route('pegawai.index') }}"
+                    class="bg-gray-200 text-[#6750A4] font-semibold py-2 px-5 rounded-xl hover:bg-gray-300 transition duration-300">
+                    Kembali
+                </a>
+                <a href="{{ route('pegawai.edit', $user->id) }}"
+                    class="inline-flex items-center bg-violet-600 text-white font-semibold py-2 px-5 rounded-xl hover:bg-violet-700 transition duration-300 shadow-md">
+                    <span class="material-icons mr-2"">edit</span>
+                        Edit
                     </a>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 @endsection
