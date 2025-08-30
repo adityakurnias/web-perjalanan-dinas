@@ -12,7 +12,6 @@ class AnggaranController extends Controller
         $anggarans = Anggaran::orderBy('tahun', 'desc')
             ->orderBy('bulan', 'desc')
             ->get();
-            
         return view('anggaran.index', compact('anggarans'));
     }
 
@@ -29,11 +28,10 @@ class AnggaranController extends Controller
             'jumlah' => 'required|numeric',
         ]);
 
-        // Check if anggaran already exists for this month and year
         $existing = Anggaran::where('tahun', $request->tahun)
             ->where('bulan', $request->bulan)
             ->first();
-            
+
         if ($existing) {
             return redirect()->back()
                 ->with('error', 'Anggaran untuk bulan dan tahun tersebut sudah ada.')
@@ -67,13 +65,12 @@ class AnggaranController extends Controller
         ]);
 
         $anggaran = Anggaran::findOrFail($id);
-        
-        // Check if anggaran already exists for this month and year (excluding current)
+
         $existing = Anggaran::where('tahun', $request->tahun)
             ->where('bulan', $request->bulan)
             ->where('id', '!=', $id)
             ->first();
-            
+
         if ($existing) {
             return redirect()->back()
                 ->with('error', 'Anggaran untuk bulan dan tahun tersebut sudah ada.')

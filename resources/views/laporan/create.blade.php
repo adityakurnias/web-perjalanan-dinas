@@ -47,7 +47,6 @@
             <div>
                 <h3 class="text-xl font-bold text-[#6750A4] mb-4">Detail Biaya</h3>
                 <div id="biaya-container" class="space-y-4">
-                    <!-- Dynamic rows will be inserted here -->
                 </div>
                 <button type="button" id="add-biaya" class="mt-4 inline-flex items-center bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-xl hover:bg-gray-300 transition duration-300">
                     <span class="material-icons mr-2">add_circle</span>
@@ -110,7 +109,6 @@
 
         addButton.addEventListener('click', createBiayaRow);
 
-        // Add one row by default
         createBiayaRow();
     });
 </script>

@@ -14,7 +14,7 @@ class BiayaController extends Controller
         $biayas = Biaya::with('laporan.sppd.user')
             ->orderBy('created_at', 'desc')
             ->get();
-            
+
         return view('biaya.index', compact('biayas'));
     }
 
@@ -27,29 +27,37 @@ class BiayaController extends Controller
     public function approve($id)
     {
         DB::beginTransaction();
-        
+
         try {
             $biaya = Biaya::with('laporan')->findOrFail($id);
-            $biaya->update(['status' => 'approved']);
-            
-            // Update anggaran terpakai
-            $currentMonth = now()->format('n');
-            $currentYear = now()->format('Y');
-            
-            $anggaran = Anggaran::where('bulan', $currentMonth)
-                ->where('tahun', $currentYear)
+            $laporan = $biaya->laporan;
+
+            $tanggalBiaya = $laporan->sppd->tanggal_berangkat;
+            $bulanBiaya = $tanggalBiaya->format('n');
+            $tahunBiaya = $tanggalBiaya->format('Y');
+
+            $anggaran = Anggaran::where('bulan', $bulanBiaya)
+                ->where('tahun', $tahunBiaya)
                 ->first();
-                
-            if ($anggaran) {
-                $anggaran->update([
-                    'terpakai' => $anggaran->terpakai + $biaya->jumlah
-                ]);
+
+            if (!$anggaran) {
+                DB::rollBack();
+                return redirect()->route('biaya.index')
+                    ->with('error', 'Gagal: Anggaran untuk bulan ' . $tanggalBiaya->format('F Y') . ' tidak ditemukan.');
             }
-            
+
+            $biaya->update(['status' => 'approved']);
+
+            $anggaran->update([
+                'terpakai' => $anggaran->terpakai + $biaya->jumlah
+            ]);
+
+
             DB::commit();
-            
+
             return redirect()->route('biaya.index')
                 ->with('success', 'Biaya berhasil disetujui.');
+
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('biaya.index')
@@ -62,7 +70,7 @@ class BiayaController extends Controller
         $request->validate([
             'keterangan' => 'required',
         ]);
-        
+
         $biaya = Biaya::findOrFail($id);
         $biaya->update([
             'status' => 'rejected',

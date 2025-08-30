@@ -1,82 +1,101 @@
 <!-- resources/views/laporan/export.blade.php -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Laporan Perjalanan Dinas - {{ $laporan->sppd->user->name }}</title>
     <style>
-        body { 
-            font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; 
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
             font-size: 12px;
             color: #333;
         }
-        .header { 
-            text-align: center; 
-            margin-bottom: 40px; 
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
             border-bottom: 2px solid #6750A4;
             padding-bottom: 10px;
         }
-        .header h1 { 
+
+        .header h1 {
             margin: 0;
             font-size: 24px;
             color: #6750A4;
         }
-        .header p { 
-            margin: 5px 0 0; 
-            color: #666; 
+
+        .header p {
+            margin: 5px 0 0;
+            color: #666;
             font-size: 14px;
         }
-        .section { 
-            margin-bottom: 25px; 
+
+        .section {
+            margin-bottom: 25px;
         }
-        .section h3 { 
-            margin-bottom: 10px; 
+
+        .section h3 {
+            margin-bottom: 10px;
             font-size: 16px;
             color: #6750A4;
             border-bottom: 1px solid #CCC2DC;
             padding-bottom: 5px;
         }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-bottom: 15px; 
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
         }
-        table, th, td { 
-            border: 1px solid #CCC2DC; 
+
+        table,
+        th,
+        td {
+            border: 1px solid #CCC2DC;
         }
-        th, td { 
-            padding: 10px; 
-            text-align: left; 
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
         }
-        th { 
-            background-color: #EADDFF; 
+
+        th {
+            background-color: #EADDFF;
             color: #6750A4;
             font-weight: bold;
         }
+
         .section p {
             line-height: 1.6;
         }
-        .signature { 
-            margin-top: 60px; 
+
+        .signature {
+            margin-top: 60px;
             page-break-inside: avoid;
         }
-        .signature table { 
-            border: none; 
+
+        .signature table {
+            border: none;
             width: 100%;
         }
-        .signature td { 
-            border: none; 
-            padding: 20px 0; 
-            text-align: center; 
+
+        .signature td {
+            border: none;
+            padding: 20px 0;
+            text-align: center;
             width: 50%;
         }
-        .signature .line { 
-            border-bottom: 1px solid #333; 
-            width: 250px; 
-            margin: 60px auto 10px; 
+
+        .signature .line {
+            border-bottom: 1px solid #333;
+            width: 250px;
+            margin: 60px auto 10px;
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>LAPORAN PERJALANAN DINAS</h1>
@@ -146,18 +165,21 @@
             </thead>
             <tbody>
                 @foreach($laporan->biayas as $index => $biaya)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $biaya->jenis_biaya }}</td>
-                    <td>Rp {{ number_format($biaya->jumlah, 0, ',', '.') }}</td>
-                    <td>{{ $biaya->keterangan ?? '-' }}</td>
-                </tr>
+                    @if ($biaya->status === 'approved')
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $biaya->jenis_biaya }}</td>
+                            <td>Rp {{ number_format($biaya->jumlah, 0, ',', '.') }}</td>
+                            <td>{{ $biaya->keterangan ?? '-' }}</td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="2" style="text-align: right; font-weight: bold;">Total Biaya:</td>
-                    <td colspan="2" style="font-weight: bold;">Rp {{ number_format($laporan->total_biaya, 0, ',', '.') }}</td>
+                    <td colspan="2" style="font-weight: bold;">Rp
+                        {{ number_format($laporan->total_biaya, 0, ',', '.') }}</td>
                 </tr>
             </tfoot>
         </table>
@@ -181,4 +203,5 @@
         </table>
     </div>
 </body>
+
 </html>

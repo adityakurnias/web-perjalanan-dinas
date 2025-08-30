@@ -31,7 +31,7 @@ class SPPD extends Model
 
     public function laporan()
     {
-        return $this->hasOne(LaporanPerjalanan::class);
+        return $this->hasOne(LaporanPerjalanan::class, 'sppd_id');
     }
 
     public function getStatusColorAttribute()

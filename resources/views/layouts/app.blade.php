@@ -106,28 +106,32 @@
             </div>
         @endauth
 
-        <main class="w-full bg-violet-50">
-            <div class="page-content">
+        <main class="w-full bg-violet-50 p-5">
+            <div class="page-content space-y-3">
                 @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
+                    <div class="flex items-center gap-3 rounded-xl bg-green-50 border border-green-200 p-4 shadow-sm">
+                        <span class="material-icons text-green-600">check_circle</span>
+                        <p class="text-green-900 font-medium">{{ session('success') }}</p>
                     </div>
                 @endif
 
                 @if(session('error'))
-                    <div class="alert alert-error">
-                        {{ session('error') }}
+                    <div class="flex items-center gap-3 rounded-xl bg-red-50 border border-red-200 p-4 shadow-sm">
+                        <span class="material-icons text-red-600">error</span>
+                        <p class="text-red-900 font-medium">{{ session('error') }}</p>
                     </div>
                 @endif
 
                 @if(session('info'))
-                    <div class="alert alert-info">
-                        {{ session('info') }}
+                    <div class="flex items-center gap-3 rounded-xl bg-blue-50 border border-blue-200 p-4 shadow-sm">
+                        <span class="material-icons text-blue-600">info</span>
+                        <p class="text-blue-900 font-medium">{{ session('info') }}</p>
                     </div>
                 @endif
 
                 @yield('content')
             </div>
+
         </main>
     </div>
 
