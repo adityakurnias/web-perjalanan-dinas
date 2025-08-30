@@ -1,131 +1,145 @@
-<!-- resources/views/laporan/show.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Detail Laporan')
 
 @section('content')
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
-        <div class="mdl-card mdl-shadow--2dp card-wide">
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Detail Laporan Perjalanan</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-                <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Pegawai:</strong> {{ $laporan->sppd->user->name }}
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>NIK:</strong> {{ $laporan->sppd->user->nik }}
-                    </div>
-                    
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Tujuan:</strong> {{ $laporan->sppd->tujuan }}
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <strong>Periode:</strong> 
-                        {{ $laporan->sppd->tanggal_berangkat->format('d/m/Y') }} - 
-                        {{ $laporan->sppd->tanggal_kembali->format('d/m/Y') }}
-                    </div>
-                    
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <strong>Kegiatan:</strong><br>
-                        {{ $laporan->kegiatan }}
-                    </div>
-                    
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <strong>Hasil:</strong><br>
-                        {{ $laporan->hasil }}
-                    </div>
-                    
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <strong>Total Biaya:</strong> Rp {{ number_format($laporan->total_biaya, 0, ',', '.') }}
-                    </div>
+<div class="min-h-screen bg-violet-50 p-4 sm:p-6 lg:p-8">
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="p-8">
+            <h2 class="text-3xl font-bold text-[#6750A4]">Detail Laporan Perjalanan</h2>
+        </div>
+
+        <div class="border-t border-gray-200 px-8 py-6">
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Pegawai</dt>
+                    <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $laporan->sppd->user->name }}</dd>
                 </div>
-                
-                <h4>Detail Biaya</h4>
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%;">
-                    <thead>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">NIK</dt>
+                    <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $laporan->sppd->user->nik }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Tujuan</dt>
+                    <dd class="mt-1 text-base font-semibold text-[#6750A4]">{{ $laporan->sppd->tujuan }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Periode</dt>
+                    <dd class="mt-1 text-base font-semibold text-[#6750A4]">
+                        {{ $laporan->sppd->tanggal_berangkat->format('d/m/Y') }} - {{ $laporan->sppd->tanggal_kembali->format('d/m/Y') }}
+                    </dd>
+                </div>
+                <div class="md:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Kegiatan</dt>
+                    <dd class="mt-1 text-base text-[#6750A4] prose max-w-none">{{ $laporan->kegiatan }}</dd>
+                </div>
+                <div class="md:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Hasil</dt>
+                    <dd class="mt-1 text-base text-[#6750A4] prose max-w-none">{{ $laporan->hasil }}</dd>
+                </div>
+                <div class="md:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Total Biaya</dt>
+                    <dd class="mt-1 text-xl font-bold text-green-600">Rp {{ number_format($laporan->total_biaya, 0, ',', '.') }}</dd>
+                </div>
+            </dl>
+        </div>
+
+        <div class="border-t border-gray-200 px-8 py-6">
+            <h3 class="text-xl font-bold text-[#6750A4] mb-4">Detail Biaya</h3>
+            <div class="bg-white rounded-2xl shadow-lg overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Jenis Biaya</th>
-                            <th class="mdl-data-table__cell--non-numeric">Jumlah</th>
-                            <th class="mdl-data-table__cell--non-numeric">Keterangan</th>
-                            <th class="mdl-data-table__cell--non-numeric">Status</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis Biaya</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Keterangan</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             @if(auth()->user()->role === 'admin')
-                            <th class="mdl-data-table__cell--non-numeric">Aksi</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                             @endif
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($laporan->biayas as $biaya)
                         <tr>
-                            <td class="mdl-data-table__cell--non-numeric">{{ $biaya->jenis_biaya }}</td>
-                            <td class="mdl-data-table__cell--non-numeric">Rp {{ number_format($biaya->jumlah, 0, ',', '.') }}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{ $biaya->keterangan ?? '-' }}</td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <span class="status-{{ $biaya->status }}">
-                                    @if($biaya->status == 'approved')
-                                        Disetujui
-                                    @elseif($biaya->status == 'rejected')
-                                        Ditolak
-                                    @else
-                                        Menunggu
-                                    @endif
-                                </span>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $biaya->jenis_biaya }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Rp {{ number_format($biaya->jumlah, 0, ',', '.') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $biaya->keterangan ?? '-' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                @if($biaya->status == 'approved')
+                                    <span class="px-3 py-1 text-sm font-semibold text-green-800 bg-green-100 rounded-full">Disetujui</span>
+                                @elseif($biaya->status == 'rejected')
+                                    <span class="px-3 py-1 text-sm font-semibold text-red-800 bg-red-100 rounded-full">Ditolak</span>
+                                @else
+                                    <span class="px-3 py-1 text-sm font-semibold text-yellow-800 bg-yellow-100 rounded-full">Menunggu</span>
+                                @endif
                             </td>
                             @if(auth()->user()->role === 'admin')
-                            <td class="mdl-data-table__cell--non-numeric">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 @if($biaya->status === 'pending')
-                                <form action="{{ route('biaya.approve', $biaya->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon">
-                                        <i class="material-icons" style="color: #4CAF50;">check_circle</i>
+                                <div class="flex items-center space-x-2">
+                                    <form action="{{ route('biaya.approve', $biaya->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="text-green-600 hover:text-green-900">
+                                            <span class="material-icons">check_circle</span>
+                                        </button>
+                                    </form>
+                                    <button class="text-red-600 hover:text-red-900 reject-btn" data-biaya-id="{{ $biaya->id }}">
+                                        <span class="material-icons">cancel</span>
                                     </button>
-                                </form>
-                                
-                                <button class="mdl-button mdl-js-button mdl-button--icon reject-btn" data-biaya-id="{{ $biaya->id }}">
-                                    <i class="material-icons" style="color: #F44336;">cancel</i>
-                                </button>
-                                
-                                <form id="reject-form-{{ $biaya->id }}" action="{{ route('biaya.reject', $biaya->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <textarea class="mdl-textfield__input" name="keterangan" rows="2" required></textarea>
-                                        <label class="mdl-textfield__label">Alasan Penolakan</label>
-                                    </div>
-                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #F44336; color: white;">
-                                        Submit Penolakan
-                                    </button>
-                                </form>
+                                </div>
                                 @endif
                             </td>
                             @endif
                         </tr>
+                        @if(auth()->user()->role === 'admin' && $biaya->status === 'pending')
+                        <tr id="reject-form-{{ $biaya->id }}" class="hidden">
+                            <td colspan="5" class="p-4 bg-gray-50">
+                                <form action="{{ route('biaya.reject', $biaya->id) }}" method="POST">
+                                    @csrf
+                                    <h4 class="text-lg font-medium text-[#6750A4] mb-2">Alasan Penolakan</h4>
+                                    <textarea name="keterangan" rows="3" required
+                                              class="appearance-none rounded-xl relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-[#6750A4] focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
+                                              placeholder="Masukkan alasan penolakan..."></textarea>
+                                    <div class="flex justify-end mt-2">
+                                        <button type="submit" class="inline-flex items-center bg-red-600 text-white font-semibold py-2 px-4 rounded-xl hover:bg-red-700 transition duration-300">
+                                            Submit Penolakan
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
-                
-                <div style="margin-top: 20px;">
-                    <a href="{{ route('laporan.export', $laporan->id) }}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                        <i class="material-icons">picture_as_pdf</i> Export PDF
-                    </a>
-                    
-                    @if(auth()->user()->role === 'admin' || auth()->user()->id === $laporan->sppd->user_id)
-                    <a href="{{ route('laporan.edit', $laporan->id) }}" class="mdl-button mdl-js-button mdl-button--raised">
-                        <i class="material-icons">edit</i> Edit
-                    </a>
-                    @endif
-                    
-                    <a href="{{ route('laporan.index') }}" class="mdl-button mdl-js-button">
-                        Kembali
-                    </a>
-                </div>
             </div>
+        </div>
+
+        <div class="bg-gray-50 px-8 py-4 flex items-center justify-end space-x-4">
+            <a href="{{ route('laporan.index') }}"
+               class="bg-gray-200 text-gray-700 font-semibold py-2 px-5 rounded-xl hover:bg-gray-300 transition duration-300">
+                Kembali
+            </a>
+            <a href="{{ route('laporan.export', $laporan->id) }}" target="_blank"
+               class="inline-flex items-center bg-blue-600 text-white font-semibold py-2 px-5 rounded-xl hover:bg-blue-700 transition duration-300 shadow-md">
+                <span class="material-icons mr-2">picture_as_pdf</span>
+                Export PDF
+            </a>
+            @if(auth()->user()->role === 'admin' || auth()->user()->id === $laporan->sppd->user_id)
+            <a href="{{ route('laporan.edit', $laporan->id) }}"
+               class="inline-flex items-center bg-violet-600 text-white font-semibold py-2 px-5 rounded-xl hover:bg-violet-700 transition duration-300 shadow-md">
+                <span class="material-icons mr-2">edit</span>
+                Edit
+            </a>
+            @endif
         </div>
     </div>
 </div>
+@endsection
 
 @if(auth()->user()->role === 'admin')
+@section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const rejectButtons = document.querySelectorAll('.reject-btn');
@@ -135,14 +149,10 @@
                 const biayaId = this.getAttribute('data-biaya-id');
                 const rejectForm = document.getElementById('reject-form-' + biayaId);
                 
-                if (rejectForm.style.display === 'none') {
-                    rejectForm.style.display = 'block';
-                } else {
-                    rejectForm.style.display = 'none';
-                }
+                rejectForm.classList.toggle('hidden');
             });
         });
     });
 </script>
-@endif
 @endsection
+@endif

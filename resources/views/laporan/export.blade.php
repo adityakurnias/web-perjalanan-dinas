@@ -5,20 +5,76 @@
     <meta charset="utf-8">
     <title>Laporan Perjalanan Dinas - {{ $laporan->sppd->user->name }}</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { margin-bottom: 5px; }
-        .header p { margin: 0; color: #666; }
-        .section { margin-bottom: 15px; }
-        .section h3 { margin-bottom: 5px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-        table, th, td { border: 1px solid #ddd; }
-        th, td { padding: 8px; text-align: left; }
-        th { background-color: #f5f5f5; }
-        .signature { margin-top: 50px; }
-        .signature table { border: none; }
-        .signature td { border: none; padding: 20px; text-align: center; }
-        .signature .line { border-bottom: 1px solid #000; width: 200px; margin: 0 auto; }
+        body { 
+            font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; 
+            font-size: 12px;
+            color: #333;
+        }
+        .header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            border-bottom: 2px solid #6750A4;
+            padding-bottom: 10px;
+        }
+        .header h1 { 
+            margin: 0;
+            font-size: 24px;
+            color: #6750A4;
+        }
+        .header p { 
+            margin: 5px 0 0; 
+            color: #666; 
+            font-size: 14px;
+        }
+        .section { 
+            margin-bottom: 25px; 
+        }
+        .section h3 { 
+            margin-bottom: 10px; 
+            font-size: 16px;
+            color: #6750A4;
+            border-bottom: 1px solid #CCC2DC;
+            padding-bottom: 5px;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+        }
+        table, th, td { 
+            border: 1px solid #CCC2DC; 
+        }
+        th, td { 
+            padding: 10px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #EADDFF; 
+            color: #6750A4;
+            font-weight: bold;
+        }
+        .section p {
+            line-height: 1.6;
+        }
+        .signature { 
+            margin-top: 60px; 
+            page-break-inside: avoid;
+        }
+        .signature table { 
+            border: none; 
+            width: 100%;
+        }
+        .signature td { 
+            border: none; 
+            padding: 20px 0; 
+            text-align: center; 
+            width: 50%;
+        }
+        .signature .line { 
+            border-bottom: 1px solid #333; 
+            width: 250px; 
+            margin: 60px auto 10px; 
+        }
     </style>
 </head>
 <body>

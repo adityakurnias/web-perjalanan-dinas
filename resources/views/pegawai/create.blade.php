@@ -4,8 +4,8 @@
 @section('title', 'Tambah Pegawai')
 
 @section('content')
-    <div class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
-        <div class="max-w-4xl w-full bg-[#CCC2DC] rounded-2xl shadow-lg p-8 space-y-8">
+    <div class="min-h-screen bg-violet-50 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div class="max-w-4xl w-full bg-white rounded-2xl shadow-lg p-8 space-y-8">
             <div>
                 <h2 class="text-center text-3xl font-bold text-[#6750A4]">Tambah Pegawai Baru</h2>
                 <p class="mt-2 text-center text-sm text-[#6750A4]">
@@ -160,7 +160,7 @@
 
                 <div class="flex items-center justify-end pt-8 mt-8 border-t border-gray-200">
                     <a href="{{ route('pegawai.index') }}"
-                        class="bg-gray-200 text-[#6750A4] font-semibold py-3 px-6 rounded-xl hover:bg-gray-300 transition duration-300 mr-4">
+                        class="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:bg-gray-300 transition duration-300 mr-4">
                         Batal
                     </a>
                     <button type="submit"

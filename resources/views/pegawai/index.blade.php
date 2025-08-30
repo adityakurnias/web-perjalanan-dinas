@@ -4,12 +4,12 @@
 @section('title', 'Kelola Pegawai')
 
 @section('content')
-    <div class="bg-violet-50 min-h-screen p-4 sm:p-6 lg:p-8">
+    <div class="min-h-screen bg-violet-50 p-4 sm:p-6 lg:p-8">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-800">Daftar Pegawai</h2>
-                    <p class="mt-1 text-sm text-gray-500">Kelola, setujui, dan lihat detail akun pegawai.</p>
+                    <h2 class="text-3xl font-bold text-[#6750A4]">Daftar Pegawai</h2>
+                    <p class="mt-1 text-sm text-[#6750A4]">Kelola, setujui, dan lihat detail akun pegawai.</p>
                 </div>
                 <a href="{{ route('pegawai.create') }}"
                     class="mt-4 sm:mt-0 inline-flex items-center justify-center bg-[#6750A4] text-white font-semibold py-3 px-5 rounded-xl hover:bg-violet-700 transition duration-300 shadow-md">
@@ -115,8 +115,8 @@
                         </table>
                     @else
                         <div class="text-center p-12">
-                            <h3 class="text-lg font-medium text-gray-700">Belum Ada Pegawai</h3>
-                            <p class="mt-1 text-sm text-gray-500">Anda belum menambahkan data pegawai. Silakan klik tombol di
+                            <h3 class="text-lg font-medium text-[#6750A4]">Belum Ada Pegawai</h3>
+                            <p class="mt-1 text-sm text-[#6750A4]">Anda belum menambahkan data pegawai. Silakan klik tombol di
                                 atas untuk memulai.</p>
                         </div>
                     @endif
